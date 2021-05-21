@@ -2,7 +2,7 @@ version: '3'
 services:
   rest:
     build: .
-    image: greeter-microservice
+    image: evasys-middleware
     ports:
       - "8080:8080"
     environment:
