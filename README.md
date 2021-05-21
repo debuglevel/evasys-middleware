@@ -14,6 +14,14 @@ to a REST interface.
 
 ## Development
 
+### Axis 1.4 WSDL to Java Generation
+
+`java -cp "axis-ant.jar;axis.jar;commons-discovery-0.2.jar;commons-logging-1.0.4.jar;jaxrpc.jar;log4j-1.2.8.jar;saaj.jar;wsdl4j-1.5.1.jar" org.apache.axis.wsdl.WSDL2Java -v -T 1.2 -o DESTIONATION_DIR -p de.debuglevel.evasysmiddleware.soap ../../../soapserver.wsdl`
+
+### WSDL to Java Generation
+
+`./gradlew wsdl2java`
+
 ### Generate SOAP Java classes
 
 ## HTTP API

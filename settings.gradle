@@ -10,6 +10,7 @@ pluginManagement {
         id "org.jetbrains.kotlin.plugin.jpa" version "$kotlinVersion"
         id 'com.google.protobuf' version "$protobufPluginVersion"
         id 'com.github.jk1.dependency-license-report' version "$dependencyLicenseReportVersion"
+        id 'com.yupzip.wsdl2java' version "$yupzipWsdl2javaVersion"
     }
 }
 
