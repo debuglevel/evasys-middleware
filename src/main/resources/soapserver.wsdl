@@ -1,0 +1,1136 @@
+<wsdl:definitions
+        xmlns:tns="soapserver.wsdl"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+        xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        targetNamespace="soapserver.wsdl"
+        name="soapserver">
+    <types>
+        <xsd:schema targetNamespace="soapserver.wsdl">
+            <xsd:element name="Header" type="tns:Header"/>
+            <xsd:complexType name="Header">
+                <xsd:sequence>
+                    <xsd:element name="Ticket" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="Login" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="Password" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="StringArray">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="User">
+                <xsd:all>
+                    <xsd:element name="m_nId" type="xsd:int"/>
+                    <xsd:element name="m_nType" type="xsd:int"/>
+                    <xsd:element name="m_sLoginName" type="xsd:string"/>
+                    <xsd:element name="m_sTitle" type="xsd:string"/>
+                    <xsd:element name="m_sFirstName" type="xsd:string"/>
+                    <xsd:element name="m_sSurName" type="xsd:string"/>
+                    <xsd:element name="m_sAddress" type="xsd:string"/>
+                    <xsd:element name="m_sEmail" type="xsd:string"/>
+                    <xsd:element name="m_nFbid" type="xsd:int"/>
+                    <xsd:element name="m_nAddressId" type="xsd:int"/>
+                    <xsd:element name="m_sPassword" type="xsd:string"/>
+                    <xsd:element name="m_sPhoneNumber" type="xsd:string"/>
+                    <xsd:element name="m_aCourses" type="tns:CourseArray"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="CourseArray">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:Course[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="UserArray">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:User[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="UserList">
+                <xsd:sequence>
+                    <xsd:element name="User" type="tns:User" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Person">
+                <xsd:all>
+                    <xsd:element name="m_nId" type="xsd:int"/>
+                    <xsd:element name="m_sTitle" type="xsd:string"/>
+                    <xsd:element name="m_sFirstname" type="xsd:string"/>
+                    <xsd:element name="m_sLastname" type="xsd:string"/>
+                    <xsd:element name="m_sIdentifier" type="xsd:string"/>
+                    <xsd:element name="m_sEmail" type="xsd:string"/>
+                    <xsd:element name="m_nGender" type="xsd:int"/>
+                    <xsd:element name="m_sAddress" type="xsd:int"/>
+                    <xsd:element name="m_sCustom1" type="xsd:string"/>
+                    <xsd:element name="m_sCustom2" type="xsd:string"/>
+                    <xsd:element name="m_sCustom3" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="PersonArray">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:Person[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Course">
+                <xsd:all>
+                    <xsd:element name="m_nCourseId" type="xsd:int"/>
+                    <xsd:element name="m_sProgramOfStudy" type="xsd:string"/>
+                    <xsd:element name="m_sCourseTitle" type="xsd:string"/>
+                    <xsd:element name="m_sRoom" type="xsd:string"/>
+                    <xsd:element name="m_nCourseType" type="xsd:int"/>
+                    <xsd:element name="m_sPubCourseId" type="xsd:string"/>
+                    <xsd:element name="m_nCountStud" type="xsd:int"/>
+                    <xsd:element name="m_aCustomFieldValues" type="tns:StringArray"/>
+                    <xsd:element name="m_nUserId" type="xsd:int"/>
+                    <xsd:element name="m_nFbid" type="xsd:int"/>
+                    <xsd:element name="m_nPeriodId" type="xsd:int"/>
+                    <xsd:element name="m_aoParticipants" type="tns:PersonArray"/>
+                    <xsd:element name="m_aoSecondaryInstructors" type="tns:UserArray"/>
+                    <xsd:element name="m_oSurveyHolder" type="tns:SurveyHolder"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="CourseList">
+                <xsd:sequence>
+                    <xsd:element name="Courses" type="tns:Course" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="SurveyHolder">
+                <xsd:all>
+                    <xsd:element name="m_aSurveys" type="tns:SurveyArray"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="SurveyArray">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:Survey[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Period">
+                <xsd:all>
+                    <xsd:element name="m_nPeriodId" type="xsd:int"/>
+                    <xsd:element name="m_sTitel" type="xsd:string"/>
+                    <xsd:element name="m_sStartDate" type="xsd:string"/>
+                    <xsd:element name="m_sEndDate" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="PeriodList">
+                <xsd:sequence>
+                    <xsd:element name="PeriodList" type="tns:Period" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Form">
+                <xsd:all>
+                    <xsd:element name="m_nFormId" type="xsd:int"/>
+                    <xsd:element name="m_sName" type="xsd:string"/>
+                    <xsd:element name="m_nOwnerId" type="xsd:int"/>
+                    <xsd:element name="m_nFormEngine" type="xsd:int"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="FormList">
+                <xsd:sequence>
+                    <xsd:element name="FormList" type="tns:Form" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Survey">
+                <xsd:all>
+                    <xsd:element name="m_nSurveyId" type="xsd:int"/>
+                    <xsd:element name="m_nState" type="xsd:int"/>
+                    <xsd:element name="m_sTitle" type="xsd:string"/>
+                    <xsd:element name="m_cType" type="xsd:string"/>
+                    <xsd:element name="m_nFrmid" type="xsd:int"/>
+                    <xsd:element name="m_nStuid" type="xsd:int"/>
+                    <xsd:element name="m_nVerid" type="xsd:int"/>
+                    <xsd:element name="m_nOpenState" type="xsd:int"/>
+                    <xsd:element name="m_nFormCount" type="xsd:int"/>
+                    <xsd:element name="m_nPswdCount" type="xsd:int"/>
+                    <xsd:element name="m_sLastDataCollectionDate" type="xsd:dateTime"/>
+                    <xsd:element name="m_nPageLinkOffset" type="xsd:int"/>
+                    <xsd:element name="m_sMaskTan" type="xsd:string"/>
+                    <xsd:element name="m_nMaskState" type="xsd:int"/>
+                    <xsd:element name="m_oPeriod" type="tns:Period"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="SurveyList">
+                <xsd:sequence>
+                    <xsd:element name="SurveyList" type="tns:Survey" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Unit">
+                <xsd:all>
+                    <xsd:element name="m_nId" type="xsd:int"/>
+                    <xsd:element name="m_sName" type="xsd:string"/>
+                    <xsd:element name="m_nPublicUnitNumber" type="xsd:int"/>
+                    <xsd:element name="m_nImageAccess" type="xsd:int"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="UnitList">
+                <xsd:sequence>
+                    <xsd:element name="UnitList" type="tns:Unit" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OnlineSurveyKey">
+                <xsd:all>
+                    <xsd:element name="CourseId" type="xsd:string"/>
+                    <xsd:element name="TransactionNumber" type="xsd:string"/>
+                    <xsd:element name="CourseName" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="OnlineSurveyKeyList">
+                <xsd:sequence>
+                    <xsd:element name="SurveyKeys" type="tns:OnlineSurveyKey" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="SurveyType">
+                <xsd:all>
+                    <xsd:element name="m_chSurveyType" type="xsd:string"/>
+                    <xsd:element name="m_sDescription" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="SurveyTypeList">
+                <xsd:sequence>
+                    <xsd:element name="SurveyTypeList" type="tns:SurveyType" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="OnlineCode">
+                <xsd:all>
+                    <xsd:element name="m_sOnlineCode" type="xsd:string"/>
+                    <xsd:element name="m_nCodeType" type="xsd:int"/>
+                    <xsd:element name="m_nSurveyId" type="xsd:int"/>
+                    <xsd:element name="m_sRecipientMailAddress" type="xsd:string"/>
+                    <xsd:element name="m_sDirectOnlineLink" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="OnlineCodeList">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:OnlineCode[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ObjectList">
+                <xsd:all>
+                    <xsd:element name="m_sObjectName" type="xsd:string"/>
+                    <xsd:element name="m_aObjects" type="tns:OnlineCodeList"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ListSessions">
+                <xsd:sequence>
+                    <xsd:element name="Session" type="tns:Session" minOccurs="1" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Session">
+                <xsd:sequence>
+                    <xsd:element name="CourseUid" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="CourseName" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="CourseCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="CourseType" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="CourseProgramOfStudy" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="CourseEnrollment" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="CourseCustomField1" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="CourseCustomField2" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="CourseCustomField3" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="CourseCustomField4" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="CourseCustomField5" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="TrainerList" type="tns:TrainerList" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="RoomName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="SubunitName" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="TrainerList">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:Trainer[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Trainer">
+                <xsd:sequence>
+                    <xsd:element name="TrainerUid" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="TrainerFirstName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                    <xsd:element name="TrainerLastName" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="TrainerGender" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="TrainerEmail" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                    <xsd:element name="TrainerPhone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="StatusList">
+                <xsd:sequence>
+                    <xsd:element name="UploadStatus" type="tns:UploadStatus" minOccurs="1" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="UploadStatus">
+                <xsd:all>
+                    <xsd:element name="CourseUid" type="xsd:string"/>
+                    <xsd:element name="StatusId" type="xsd:string"/>
+                    <xsd:element name="StatusMessage" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="PDFPlugin">
+                <xsd:all>
+                    <xsd:element name="m_nPluginId" type="xsd:int"/>
+                    <xsd:element name="m_sTitle" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="PDFPluginContainer">
+                <xsd:all>
+                    <xsd:element name="m_aPluginArray" type="tns:PDFPluginList"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="PDFPluginList">
+                <xsd:complexContent>
+                    <xsd:restriction base="soapenc:Array">
+                        <xsd:attribute ref="soapenc:arrayType" wsdl:arrayType="tns:PDFPlugin[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <message name="Header">
+        <part name="Header" element="tns:Header"/>
+    </message>
+    <message name="RequestTicketRequest">
+        <part name="Login" type="xsd:string"/>
+        <part name="Password" type="xsd:string"/>
+    </message>
+    <message name="RequestTicketResponse">
+        <part name="Ticket" type="xsd:string"/>
+    </message>
+    <message name="GetPswdsByParticipantRequest">
+        <part name="UserMailAddress" type="xsd:string"/>
+        <part name="CourseCode" type="xsd:string"/>
+    </message>
+    <message name="GetPswdsByParticipantResponse">
+        <part name="OnlineSurveyKeys" type="tns:OnlineSurveyKeyList"/>
+    </message>
+    <message name="DeletePswdsRequest">
+        <part name="ObjectList" type="tns:ObjectList"/>
+    </message>
+    <message name="DeletePswdsResponse">
+        <part name="ObjectList" type="tns:ObjectList"/>
+    </message>
+    <message name="GetUserByIdRequest">
+        <part name="nUserId" type="xsd:int"/>
+    </message>
+    <message name="GetUserByIdResponse">
+        <part name="User" type="tns:User"/>
+    </message>
+    <message name="GetUserByLoginRequest">
+        <part name="sLogin" type="xsd:string"/>
+        <part name="bIncludeCourses" type="xsd:boolean"/>
+        <part name="bIncludeSurveys" type="xsd:boolean"/>
+        <part name="bIncludeParticipants" type="xsd:boolean"/>
+    </message>
+    <message name="GetUserByLoginResponse">
+        <part name="User" type="tns:User"/>
+    </message>
+    <message name="GetLecturersBySubunitRequest">
+        <part name="nSubunitId" type="xsd:int"/>
+    </message>
+    <message name="GetLecturersBySubunitResponse">
+        <part name="UserList" type="tns:UserList"/>
+    </message>
+    <message name="GetAllPeriodsRequest">
+    </message>
+    <message name="GetAllPeriodsResponse">
+        <part name="PeriodList" type="tns:PeriodList"/>
+    </message>
+    <message name="UpdateUserRequest">
+        <part name="User" type="tns:User"/>
+    </message>
+    <message name="UpdateUserResponse">
+        <part name="User" type="tns:User"/>
+    </message>
+    <message name="GetCoursesByUserIdRequest">
+        <part name="nUserId" type="xsd:int"/>
+    </message>
+    <message name="GetCoursesByUserIdResponse">
+        <part name="CourseList" type="tns:CourseList"/>
+    </message>
+    <message name="GetCourseByIdRequest">
+        <part name="nCourseId" type="xsd:int"/>
+    </message>
+    <message name="GetCourseByIdResponse">
+        <part name="Course" type="tns:Course"/>
+    </message>
+    <message name="GetCourseByCourseIdAndUserIdRequest">
+        <part name="sExternalCourseId" type="xsd:string"/>
+        <part name="nUserId" type="xsd:int"/>
+    </message>
+    <message name="GetCourseByCourseIdAndUserIdResponse">
+        <part name="Course" type="tns:Course"/>
+    </message>
+    <message name="InsertCourseRequest">
+        <part name="oCourse" type="tns:Course"/>
+    </message>
+    <message name="InsertCourseResponse">
+        <part name="Course" type="tns:Course"/>
+    </message>
+    <message name="UpdateCourseRequest">
+        <part name="oCourse" type="tns:Course"/>
+    </message>
+    <message name="UpdateCourseResponse">
+        <part name="Course" type="tns:Course"/>
+    </message>
+    <message name="GetPeriodByIdRequest">
+        <part name="nPeriodId" type="xsd:int"/>
+    </message>
+    <message name="GetPeriodByIdResponse">
+        <part name="Period" type="tns:Period"/>
+    </message>
+    <message name="GetPeriodByDateRequest">
+        <part name="sDate" type="xsd:string"/>
+    </message>
+    <message name="GetPeriodByDateResponse">
+        <part name="Period" type="tns:Period"/>
+    </message>
+    <message name="GetAllFormsRequest">
+    </message>
+    <message name="GetAllFormsResponse">
+        <part name="FormList" type="tns:FormList"/>
+    </message>
+    <message name="GetSurveyTypesRequest">
+    </message>
+    <message name="GetSurveyTypesResponse">
+        <part name="SurveyTypeList" type="tns:SurveyTypeList"/>
+    </message>
+    <message name="GetFormByCourseIdAndPeriodIdRequest">
+        <part name="nCourseId" type="xsd:int"/>
+        <part name="nPeriodId" type="xsd:int"/>
+    </message>
+    <message name="GetFormByCourseIdAndPeriodIdResponse">
+        <part name="FormList" type="tns:FormList"/>
+    </message>
+    <message name="GetFormByIdRequest">
+        <part name="nFormId" type="xsd:int"/>
+    </message>
+    <message name="GetFormByIdResponse">
+        <part name="Form" type="tns:Form"/>
+    </message>
+    <message name="GetSurveyByIdRequest">
+        <part name="nSurveyId" type="xsd:int"/>
+    </message>
+    <message name="GetSurveyByIdResponse">
+        <part name="Survey" type="tns:Survey"/>
+    </message>
+    <message name="GetSurveysByCourseRequest">
+        <part name="nCourseId" type="xsd:int"/>
+        <part name="nFormId" type="xsd:int"/>
+        <part name="nPeriodId" type="xsd:int"/>
+    </message>
+    <message name="GetSurveysByCourseResponse">
+        <part name="SurveyList" type="tns:SurveyList"/>
+    </message>
+    <message name="UpdateSurveyRequest">
+        <part name="oSurvey" type="tns:Survey"/>
+    </message>
+    <message name="UpdateSurveyResponse">
+        <part name="bUpdateSuccess" type="xsd:boolean"/>
+    </message>
+    <message name="CloseSurveyRequest">
+        <part name="nSurveyId" type="xsd:int"/>
+    </message>
+    <message name="CloseSurveyResponse">
+        <part name="bUpdateSuccess" type="xsd:boolean"/>
+    </message>
+    <message name="OpenSurveyRequest">
+        <part name="nSurveyId" type="xsd:int"/>
+    </message>
+    <message name="OpenSurveyResponse">
+        <part name="bUpdateSuccess" type="xsd:boolean"/>
+    </message>
+    <message name="GetPswdsBySurveyRequest">
+        <part name="nSurveyId" type="xsd:int"/>
+        <part name="nPswdCount" type="xsd:int"/>
+    </message>
+    <message name="GetPswdsBySurveyResponse">
+        <part name="ObjectList" type="tns:ObjectList"/>
+    </message>
+    <message name="IsPswdUnusedRequest">
+        <part name="sPSWD" type="xsd:string"/>
+    </message>
+    <message name="IsPswdUnusedResponse">
+        <part name="bPswdIsUnused" type="xsd:boolean"/>
+    </message>
+    <message name="InsertCentralSurveyRequest">
+        <part name="nUserId" type="xsd:int"/>
+        <part name="nCourseId" type="xsd:int"/>
+        <part name="nFormId" type="xsd:int"/>
+        <part name="nPeriodId" type="xsd:int"/>
+        <part name="sSurveyType" type="xsd:string"/>
+        <part name="sNotice" type="xsd:string"/>
+    </message>
+    <message name="InsertCentralSurveyResponse">
+        <part name="return" type="tns:Survey"/>
+    </message>
+    <message name="SetupCentralSurveyRequest">
+        <part name="oUser" type="tns:User"/>
+        <part name="oCourse" type="tns:Course"/>
+        <part name="oSubunit" type="tns:Unit"/>
+        <part name="nFormId" type="xsd:int"/>
+        <part name="nPeriodId" type="xsd:int"/>
+        <part name="sSurveyType" type="xsd:string"/>
+        <part name="sNotice" type="xsd:string"/>
+    </message>
+    <message name="SetupCentralSurveyResponse">
+        <part name="Survey" type="tns:Survey"/>
+    </message>
+    <message name="GetPDFReportRequest">
+        <part name="nSurveyId" type="xsd:int"/>
+        <part name="nUserId" type="xsd:int"/>
+        <part name="nCustomPDFId" type="xsd:int"/>
+    </message>
+    <message name="GetPDFReportResponse">
+        <part name="ReportLink" type="xsd:string"/>
+    </message>
+    <message name="GetSubunitsRequest">
+    </message>
+    <message name="GetSubunitsResponse">
+        <part name="UnitList" type="tns:UnitList"/>
+    </message>
+    <message name="GetSubunitBySubunitNameRequest">
+        <part name="sSubunitName" type="xsd:string"/>
+    </message>
+    <message name="GetSubunitBySubunitNameResponse">
+        <part name="Unit" type="tns:Unit"/>
+    </message>
+    <message name="InsertUserRequest">
+        <part name="User" type="tns:User"/>
+    </message>
+    <message name="InsertUserResponse">
+        <part name="User" type="tns:User"/>
+    </message>
+    <message name="InsertSubunitRequest">
+        <part name="Unit" type="tns:Unit"/>
+    </message>
+    <message name="InsertSubunitResponse">
+        <part name="Unit" type="tns:Unit"/>
+    </message>
+    <message name="UploadSessionsRequest">
+        <part name="SessionList" type="tns:ListSessions"/>
+    </message>
+    <message name="UploadSessionsResponse">
+        <part name="StatusList" type="tns:StatusList"/>
+    </message>
+    <message name="GetPDFPluginsByFormIdRequest">
+        <part name="FormId" type="xsd:int"/>
+    </message>
+    <message name="GetPDFPluginsByFormIdResponse">
+        <part name="PDFPluginContainer" type="tns:PDFPluginContainer"/>
+    </message>
+    <message name="GetPDFFormRequest">
+        <part name="FormId" type="xsd:int"/>
+        <part name="SurveyId" type="xsd:int"/>
+    </message>
+    <message name="GetPDFFormResponse">
+        <part name="HyperLink" type="xsd:string"/>
+    </message>
+    <message name="GetPDFCoversheetRequest">
+        <part name="SurveyId" type="xsd:int"/>
+    </message>
+    <message name="GetPDFCoversheetResponse">
+        <part name="HyperLink" type="xsd:string"/>
+    </message>
+    <message name="GetPDFPswdRequest">
+        <part name="SurveyId" type="xsd:int"/>
+    </message>
+    <message name="GetPDFPswdResponse">
+        <part name="HyperLink" type="xsd:string"/>
+    </message>
+    <message name="GetCSVRawDataRequest">
+        <part name="SurveyId" type="xsd:int"/>
+    </message>
+    <message name="GetCSVRawDataResponse">
+        <part name="HyperLink" type="xsd:string"/>
+    </message>
+    <message name="GetSPSSRawDataRequest">
+        <part name="SurveyId" type="xsd:int"/>
+    </message>
+    <message name="GetSPSSRawDataResponse">
+        <part name="HyperLink" type="xsd:string"/>
+    </message>
+
+    <portType name="evasysSoapPort">
+        <operation name="RequestTicket">
+            <input message="tns:RequestTicketRequest"/>
+            <output message="tns:RequestTicketResponse"/>
+        </operation>
+        <operation name="GetPswdsByParticipant">
+            <input message="tns:GetPswdsByParticipantRequest"/>
+            <output message="tns:GetPswdsByParticipantResponse"/>
+        </operation>
+        <operation name="DeletePswds">
+            <input message="tns:DeletePswdsRequest"/>
+            <output message="tns:DeletePswdsResponse"/>
+        </operation>
+        <operation name="GetUserById">
+            <input message="tns:GetUserByIdRequest"/>
+            <output message="tns:GetUserByIdResponse"/>
+        </operation>
+        <operation name="GetUserByLogin">
+            <input message="tns:GetUserByLoginRequest"/>
+            <output message="tns:GetUserByLoginResponse"/>
+        </operation>
+        <operation name="GetLecturersBySubunit">
+            <input message="tns:GetLecturersBySubunitRequest"/>
+            <output message="tns:GetLecturersBySubunitResponse"/>
+        </operation>
+        <operation name="GetAllPeriods">
+            <input message="tns:GetAllPeriodsRequest"/>
+            <output message="tns:GetAllPeriodsResponse"/>
+        </operation>
+        <operation name="UpdateUser">
+            <input message="tns:UpdateUserRequest"/>
+            <output message="tns:UpdateUserResponse"/>
+        </operation>
+        <operation name="GetCoursesByUserId">
+            <input message="tns:GetCoursesByUserIdRequest"/>
+            <output message="tns:GetCoursesByUserIdResponse"/>
+        </operation>
+        <operation name="GetCourseById">
+            <input message="tns:GetCourseByIdRequest"/>
+            <output message="tns:GetCourseByIdResponse"/>
+        </operation>
+        <operation name="GetCourseByCourseIdAndUserId">
+            <input message="tns:GetCourseByCourseIdAndUserIdRequest"/>
+            <output message="tns:GetCourseByCourseIdAndUserIdResponse"/>
+        </operation>
+        <operation name="InsertCourse">
+            <input message="tns:InsertCourseRequest"/>
+            <output message="tns:InsertCourseResponse"/>
+        </operation>
+        <operation name="UpdateCourse">
+            <input message="tns:UpdateCourseRequest"/>
+            <output message="tns:UpdateCourseResponse"/>
+        </operation>
+        <operation name="GetPeriodById">
+            <input message="tns:GetPeriodByIdRequest"/>
+            <output message="tns:GetPeriodByIdResponse"/>
+        </operation>
+        <operation name="GetPeriodByDate">
+            <input message="tns:GetPeriodByDateRequest"/>
+            <output message="tns:GetPeriodByDateResponse"/>
+        </operation>
+        <operation name="GetAllForms">
+            <input message="tns:GetAllFormsRequest"/>
+            <output message="tns:GetAllFormsResponse"/>
+        </operation>
+        <operation name="GetSurveyTypes">
+            <input message="tns:GetSurveyTypesRequest"/>
+            <output message="tns:GetSurveyTypesResponse"/>
+        </operation>
+        <operation name="GetFormByCourseIdAndPeriodId">
+            <input message="tns:GetFormByCourseIdAndPeriodIdRequest"/>
+            <output message="tns:GetFormByCourseIdAndPeriodIdResponse"/>
+        </operation>
+        <operation name="GetFormById">
+            <input message="tns:GetFormByIdRequest"/>
+            <output message="tns:GetFormByIdResponse"/>
+        </operation>
+        <operation name="GetSurveyById">
+            <input message="tns:GetSurveyByIdRequest"/>
+            <output message="tns:GetSurveyByIdResponse"/>
+        </operation>
+        <operation name="GetSurveysByCourse">
+            <input message="tns:GetSurveysByCourseRequest"/>
+            <output message="tns:GetSurveysByCourseResponse"/>
+        </operation>
+        <operation name="UpdateSurvey">
+            <input message="tns:UpdateSurveyRequest"/>
+            <output message="tns:UpdateSurveyResponse"/>
+        </operation>
+        <operation name="CloseSurvey">
+            <input message="tns:CloseSurveyRequest"/>
+            <output message="tns:CloseSurveyResponse"/>
+        </operation>
+        <operation name="OpenSurvey">
+            <input message="tns:OpenSurveyRequest"/>
+            <output message="tns:OpenSurveyResponse"/>
+        </operation>
+        <operation name="GetPswdsBySurvey">
+            <input message="tns:GetPswdsBySurveyRequest"/>
+            <output message="tns:GetPswdsBySurveyResponse"/>
+        </operation>
+        <operation name="IsPswdUnused">
+            <input message="tns:IsPswdUnusedRequest"/>
+            <output message="tns:IsPswdUnusedResponse"/>
+        </operation>
+        <operation name="InsertCentralSurvey">
+            <input message="tns:InsertCentralSurveyRequest"/>
+            <output message="tns:InsertCentralSurveyResponse"/>
+        </operation>
+        <operation name="SetupCentralSurvey">
+            <input message="tns:SetupCentralSurveyRequest"/>
+            <output message="tns:SetupCentralSurveyResponse"/>
+        </operation>
+        <operation name="GetPDFReport">
+            <input message="tns:GetPDFReportRequest"/>
+            <output message="tns:GetPDFReportResponse"/>
+        </operation>
+        <operation name="GetSubunits">
+            <input message="tns:GetSubunitsRequest"/>
+            <output message="tns:GetSubunitsResponse"/>
+        </operation>
+        <operation name="GetSubunitBySubunitName">
+            <input message="tns:GetSubunitBySubunitNameRequest"/>
+            <output message="tns:GetSubunitBySubunitNameResponse"/>
+        </operation>
+        <operation name="InsertUser">
+            <input message="tns:InsertUserRequest"/>
+            <output message="tns:InsertUserResponse"/>
+        </operation>
+        <operation name="InsertSubunit">
+            <input message="tns:InsertSubunitRequest"/>
+            <output message="tns:InsertSubunitResponse"/>
+        </operation>
+        <operation name="UploadSessions">
+            <input message="tns:UploadSessionsRequest"/>
+            <output message="tns:UploadSessionsResponse"/>
+        </operation>
+        <operation name="GetPDFPluginsByFormId">
+            <input message="tns:GetPDFPluginsByFormIdRequest"/>
+            <output message="tns:GetPDFPluginsByFormIdResponse"/>
+        </operation>
+        <operation name="GetPDFForm">
+            <input message="tns:GetPDFFormRequest"/>
+            <output message="tns:GetPDFFormResponse"/>
+        </operation>
+        <operation name="GetPDFCoversheet">
+            <input message="tns:GetPDFCoversheetRequest"/>
+            <output message="tns:GetPDFCoversheetResponse"/>
+        </operation>
+        <operation name="GetPDFPswd">
+            <input message="tns:GetPDFPswdRequest"/>
+            <output message="tns:GetPDFPswdResponse"/>
+        </operation>
+        <operation name="GetCSVRawData">
+            <input message="tns:GetCSVRawDataRequest"/>
+            <output message="tns:GetCSVRawDataResponse"/>
+        </operation>
+        <operation name="GetSPSSRawData">
+            <input message="tns:GetSPSSRawDataRequest"/>
+            <output message="tns:GetSPSSRawDataResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="evasysBinding" type="tns:evasysSoapPort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="RequestTicket">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPswdsByParticipant">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="DeletePswds">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetUserById">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetUserByLogin">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetLecturersBySubunit">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetAllPeriods">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="UpdateUser">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetCoursesByUserId">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetCourseById">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetCourseByCourseIdAndUserId">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="InsertCourse">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="UpdateCourse">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPeriodById">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPeriodByDate">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetAllForms">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetSurveyTypes">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetFormByCourseIdAndPeriodId">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetFormById">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetSurveyById">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetSurveysByCourse">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="UpdateSurvey">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="CloseSurvey">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="OpenSurvey">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPswdsBySurvey">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="IsPswdUnused">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="InsertCentralSurvey">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="SetupCentralSurvey">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPDFReport">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetSubunits">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetSubunitBySubunitName">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="InsertUser">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="InsertSubunit">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="UploadSessions">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPDFPluginsByFormId">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPDFForm">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPDFCoversheet">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetPDFPswd">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetSPSSRawData">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+        <operation name="GetCSVRawData">
+            <soap:operation soapAction="urn:soap#soap"/>
+            <input>
+                <soap:header use="literal" message="tns:Header" part="Header"/>
+                <soap:body use="literal" namespace="soapserver"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="soapserver"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="soapserver">
+        <port name="evasysSoapPort" binding="tns:evasysBinding">
+            <soap:address location="https://213.252.154.40/evasys/include/ep/controller/soap/csoapserver.php5"/>
+        </port>
+    </service>
+</wsdl:definitions>
