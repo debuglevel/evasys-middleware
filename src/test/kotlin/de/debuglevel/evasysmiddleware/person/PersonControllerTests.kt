@@ -1,5 +1,8 @@
 package de.debuglevel.evasysmiddleware.person
 
+import de.debuglevel.evasysmiddleware.templatePerson.AddPersonRequest
+import de.debuglevel.evasysmiddleware.templatePerson.Person
+import de.debuglevel.evasysmiddleware.templatePerson.UpdatePersonRequest
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest

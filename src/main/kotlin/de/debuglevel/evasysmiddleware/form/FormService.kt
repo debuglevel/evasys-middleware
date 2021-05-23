@@ -1,7 +1,7 @@
 package de.debuglevel.evasysmiddleware.form
 
-import de.debuglevel.evasysmiddleware.soap.Form
 import de.debuglevel.evasysmiddleware.soap.SoapService
+import de.debuglevel.evasysmiddleware.soap.fromSoap
 import mu.KotlinLogging
 import javax.inject.Singleton
 
@@ -69,7 +69,9 @@ class FormService(
     fun getAll(): Set<Form> {
         logger.debug { "Getting all forms..." }
 
-        val forms = soapService.port.allForms.toSet()
+        val forms = soapService.port.allForms
+            .map { it.fromSoap() }
+            .toSet()
 
         logger.debug { "Got ${forms.size} forms" }
         return forms

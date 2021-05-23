@@ -72,7 +72,7 @@ class UserService(
         logger.debug { "Getting all users..." }
 
         val users = subunitService.getAll().flatMap {
-            soapService.port.getLecturersBySubunit(it.m_nId).toSet()
+            soapService.port.getLecturersBySubunit(it.id).toSet()
         }.toSet()
 
         logger.debug { "Got ${users.size} users" }

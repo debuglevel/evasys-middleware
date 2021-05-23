@@ -1,7 +1,7 @@
 package de.debuglevel.evasysmiddleware.period
 
-import de.debuglevel.evasysmiddleware.soap.Period
 import de.debuglevel.evasysmiddleware.soap.SoapService
+import de.debuglevel.evasysmiddleware.soap.fromSoap
 import mu.KotlinLogging
 import javax.inject.Singleton
 
@@ -69,7 +69,9 @@ class PeriodService(
     fun getAll(): Set<Period> {
         logger.debug { "Getting all periods..." }
 
-        val periods = soapService.port.allPeriods.toSet()
+        val periods = soapService.port.allPeriods
+            .map { it.fromSoap() }
+            .toSet()
 
         logger.debug { "Got ${periods.size} periods" }
         return periods

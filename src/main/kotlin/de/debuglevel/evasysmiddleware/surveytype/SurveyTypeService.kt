@@ -1,7 +1,7 @@
 package de.debuglevel.evasysmiddleware.surveytype
 
 import de.debuglevel.evasysmiddleware.soap.SoapService
-import de.debuglevel.evasysmiddleware.soap.SurveyType
+import de.debuglevel.evasysmiddleware.soap.fromSoap
 import mu.KotlinLogging
 import javax.inject.Singleton
 
@@ -69,7 +69,9 @@ class SurveyTypeService(
     fun getAll(): Set<SurveyType> {
         logger.debug { "Getting all survey types..." }
 
-        val surveyTypes = soapService.port.surveyTypes.toSet()
+        val surveyTypes = soapService.port.surveyTypes
+            .map { it.fromSoap() }
+            .toSet()
 
         logger.debug { "Got ${surveyTypes.size} survey types" }
         return surveyTypes

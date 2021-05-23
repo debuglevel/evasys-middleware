@@ -1,8 +1,8 @@
-package de.debuglevel.evasysmiddleware.person
+package de.debuglevel.evasysmiddleware.templatePerson
 
 import java.util.*
 
-data class AddPersonResponse(
+data class GetPersonResponse(
     val id: UUID,
     val name: String,
 ) {

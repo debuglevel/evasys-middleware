@@ -1,5 +1,6 @@
 package de.debuglevel.evasysmiddleware.person
 
+import de.debuglevel.evasysmiddleware.templatePerson.Person
 import java.util.stream.Stream
 
 object TestDataProvider {

@@ -1,4 +1,4 @@
-package de.debuglevel.evasysmiddleware.person
+package de.debuglevel.evasysmiddleware.templatePerson
 
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType

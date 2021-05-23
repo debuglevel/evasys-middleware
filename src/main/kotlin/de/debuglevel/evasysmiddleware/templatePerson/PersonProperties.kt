@@ -1,4 +1,4 @@
-package de.debuglevel.evasysmiddleware.person
+package de.debuglevel.evasysmiddleware.templatePerson
 
 import io.micronaut.context.annotation.ConfigurationProperties
 import java.time.Duration

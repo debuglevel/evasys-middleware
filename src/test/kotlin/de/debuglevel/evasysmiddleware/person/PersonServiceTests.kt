@@ -1,5 +1,7 @@
 package de.debuglevel.evasysmiddleware.person
 
+import de.debuglevel.evasysmiddleware.templatePerson.Person
+import de.debuglevel.evasysmiddleware.templatePerson.PersonService
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

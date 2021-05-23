@@ -1,5 +1,6 @@
 package de.debuglevel.evasysmiddleware.person
 
+import de.debuglevel.evasysmiddleware.templatePerson.*
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 import io.reactivex.Single

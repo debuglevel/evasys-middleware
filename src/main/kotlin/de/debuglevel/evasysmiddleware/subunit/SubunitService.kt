@@ -1,7 +1,7 @@
 package de.debuglevel.evasysmiddleware.subunit
 
 import de.debuglevel.evasysmiddleware.soap.SoapService
-import de.debuglevel.evasysmiddleware.soap.Unit
+import de.debuglevel.evasysmiddleware.soap.fromSoap
 import mu.KotlinLogging
 import javax.inject.Singleton
 
@@ -66,10 +66,12 @@ class SubunitService(
 //        return updatedPerson
 //    }
 
-    fun getAll(): Set<Unit> {
+    fun getAll(): Set<Subunit> {
         logger.debug { "Getting all subunits..." }
 
-        val subunits = soapService.port.subunits.toSet()
+        val subunits = soapService.port.subunits
+            .map { it.fromSoap() }
+            .toSet()
 
         logger.debug { "Got ${subunits.size} subunits" }
         return subunits
@@ -100,3 +102,5 @@ class SubunitService(
 
     class ItemNotFoundException(criteria: Any) : Exception("Item '$criteria' does not exist.")
 }
+
+

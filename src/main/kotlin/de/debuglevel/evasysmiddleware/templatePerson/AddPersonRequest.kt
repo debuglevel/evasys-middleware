@@ -1,4 +1,4 @@
-package de.debuglevel.evasysmiddleware.person
+package de.debuglevel.evasysmiddleware.templatePerson
 
 data class AddPersonRequest(
     val name: String,
