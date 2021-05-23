@@ -10,7 +10,10 @@ class SoapService(
     private val logger = KotlinLogging.logger {}
 
     val port: EvasysSoapPort_PortType = run {
+        logger.debug { "Initializing SOAP client..." }
         val locator = SoapserverLocator()
-        locator.getevasysSoapPort(soapProperties.endpointUrl)
+        val port = locator.getevasysSoapPort(soapProperties.endpointUrl)
+        logger.debug { "Initialized SOAP client: $port" }
+        port
     }
 }
