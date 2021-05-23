@@ -7,10 +7,8 @@ import javax.inject.Singleton
 class SoapService {
     private val logger = KotlinLogging.logger {}
 
-    val port: EvasysSoapPort_PortType
-
-    init {
+    val port: EvasysSoapPort_PortType = run {
         val locator = SoapserverLocator()
-        port = locator.getevasysSoapPort()
+        locator.getevasysSoapPort()
     }
 }
