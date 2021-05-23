@@ -1,5 +1,9 @@
 app:
   evasys-middleware:
+    soap:
+      endpoint-url: https://localhost/
+      user: soap
+      password: soap
 
   security:
     configurable-credential-authentication:
