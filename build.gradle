@@ -44,8 +44,8 @@ plugins {
     // List all licenses in "build/reports/dependency-license" with "./gradlew generateLicenseReport".
     id 'com.github.jk1.dependency-license-report'
 
-    // Generate Java classes from WSDL by Apache CXF wsdl2java
-    id 'com.yupzip.wsdl2java'
+//    // Generate Java classes from WSDL by Apache CXF wsdl2java
+//    id 'com.yupzip.wsdl2java'
 }
 // Enhance Hibernate entities (see configuration block below).
 // TODO: move to plugins block when https://hibernate.atlassian.net/browse/HHH-13354 is resolved
@@ -335,12 +335,12 @@ task copyOpenAPI(dependsOn: ['kaptKotlin'], type: Copy) {
 }
 tasks.build.dependsOn copyOpenAPI
 
-wsdl2java {
-    wsdlDir = file("src/main/resources/wsdl") // define to support incremental build
-    wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
-                          ['-verbose','-p','de.debuglevel.evasysmiddleware.soap',"$projectDir/src/main/resources/wsdl/soapserver.wsdl"]
-    ]
-    locale = Locale.ENGLISH
-    cxfVersion = "3.4.3"
-    cxfPluginVersion = "3.3.1" // https://mvnrepository.com/artifact/org.apache.cxf/cxf-xjc-plugin
-}
+//wsdl2java {
+//    wsdlDir = file("src/main/resources/wsdl") // define to support incremental build
+//    wsdlsToGenerate = [   //  2d-array of wsdls and cxf-parameters
+//                          ['-verbose','-p','de.debuglevel.evasysmiddleware.soap',"$projectDir/src/main/resources/wsdl/soapserver.wsdl"]
+//    ]
+//    locale = Locale.ENGLISH
+//    cxfVersion = "3.4.3"
+//    cxfPluginVersion = "3.3.1" // https://mvnrepository.com/artifact/org.apache.cxf/cxf-xjc-plugin
+//}
