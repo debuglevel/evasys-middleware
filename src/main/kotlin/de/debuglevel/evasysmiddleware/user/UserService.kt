@@ -1,7 +1,7 @@
 package de.debuglevel.evasysmiddleware.user
 
 import de.debuglevel.evasysmiddleware.soap.SoapService
-import de.debuglevel.evasysmiddleware.soap.User
+import de.debuglevel.evasysmiddleware.soap.fromSoap
 import de.debuglevel.evasysmiddleware.subunit.SubunitService
 import mu.KotlinLogging
 import javax.inject.Singleton
@@ -71,8 +71,9 @@ class UserService(
     fun getAll(): Set<User> {
         logger.debug { "Getting all users..." }
 
-        val users = subunitService.getAll().flatMap {
-            soapService.port.getLecturersBySubunit(it.id).toSet()
+        val users = subunitService.getAll().flatMap { subunit ->
+            soapService.port.getUsersBySubunit(subunit.id, false, false, false, false).users
+                .map { user -> user.fromSoap() }
         }.toSet()
 
         logger.debug { "Got ${users.size} users" }

@@ -1,7 +1,7 @@
 package de.debuglevel.evasysmiddleware.course
 
-import de.debuglevel.evasysmiddleware.soap.Course
 import de.debuglevel.evasysmiddleware.soap.SoapService
+import de.debuglevel.evasysmiddleware.soap.fromSoap
 import de.debuglevel.evasysmiddleware.user.UserService
 import mu.KotlinLogging
 import javax.inject.Singleton
@@ -71,8 +71,9 @@ class CourseService(
     fun getAll(): Set<Course> {
         logger.debug { "Getting all courses..." }
 
-        val courses = userService.getAll().flatMap {
-            soapService.port.getCoursesByUserId(it.m_nId).toSet()
+        val courses = userService.getAll().flatMap { user ->
+            soapService.port.getCoursesByUserId(user.id).courses.toSet()
+                .map { course -> course.fromSoap() }
         }.toSet()
 
         logger.debug { "Got ${courses.size} courses" }

@@ -1,6 +1,8 @@
 package de.debuglevel.evasysmiddleware.course
 
 import de.debuglevel.evasysmiddleware.person.Person
+import de.debuglevel.evasysmiddleware.survey.Survey
+import de.debuglevel.evasysmiddleware.user.User
 
 data class Course(
     val id: Int,
@@ -8,12 +10,14 @@ data class Course(
     val title: String,
     val room: String,
     val type: Int,
-    //val pubCourseId: String,
+    val publicCourseId: String,
+    val externalId: String,
     val studentCount: Int,
-    //val customFieldValues: List<String>,
+    val customFieldJson: String,
     val userId: Int,
-    //val fbId: Int,
+    val fbId: Int,
     val periodId: Int,
     val participants: Set<Person>,
-    //val secondaryInstructors: List<User>,
+    val secondaryInstructors: Set<User>,
+    val surveys: Set<Survey>,
 )

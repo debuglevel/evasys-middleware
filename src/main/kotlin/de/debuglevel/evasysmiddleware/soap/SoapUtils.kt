@@ -6,9 +6,9 @@ fun Unit.fromSoap(): Subunit {
     return Subunit(
         id = this.mnId,
         name = this.msName,
-        // TODO: mnPublicUnitNumber
-        // TODO: mnImageAccess
-        // TODO: maUsers
+        publicUnitNumber = this.mnPublicUnitNumber,
+        imageAccess = this.mnImageAccess,
+        users = this.maUsers.users.map { it.fromSoap() }.toSet(),
     )
 }
 
@@ -41,20 +41,21 @@ fun Course.fromSoap(): de.debuglevel.evasysmiddleware.course.Course {
         title = this.msCourseTitle,
         room = this.msRoom,
         type = this.mnCourseType,
-        // TODO: msPubCourseId
-        // TODO: msExternalId
+        publicCourseId = this.msPubCourseId,
+        externalId = this.msExternalId,
         studentCount = this.mnCountStud,
-        // TODO: msCustomFieldsJSON
+        customFieldJson = this.msCustomFieldsJSON,
         userId = this.mnUserId,
-        // TODO: mnFbid
+        fbId = this.mnFbid,
         periodId = this.mnPeriodId,
         participants = this.mAoParticipants.persons.map { it.fromSoap() }.toSet(),
-        // TODO: mAoSecondaryInstructors
-        // TODO: moSurveyHolder
+        secondaryInstructors = this.mAoSecondaryInstructors.users.map { it.fromSoap() }.toSet(),
+        surveys = this.moSurveyHolder.maSurveys.surveys.map { it.fromSoap() }.toSet(),
     )
 }
 
 fun Survey.fromSoap(): de.debuglevel.evasysmiddleware.survey.Survey {
+    val lastDataCollectionDate = TODO("parse this.msLastDataCollectionDate")
     return de.debuglevel.evasysmiddleware.survey.Survey(
         id = this.mnSurveyId,
         state = this.mnState,
@@ -66,7 +67,7 @@ fun Survey.fromSoap(): de.debuglevel.evasysmiddleware.survey.Survey {
         openState = this.mnOpenState,
         formCount = this.mnFormCount,
         pswdCount = this.mnPswdCount,
-        lastDataCollectionDate = this.msLastDataCollectionDate,
+        lastDataCollectionDate = lastDataCollectionDate,
         pageLinkOffset = this.mnPageLinkOffset,
         maskTan = this.msMaskTan,
         maskState = this.mnMaskState,
@@ -86,18 +87,18 @@ fun User.fromSoap(): de.debuglevel.evasysmiddleware.user.User {
         id = this.mnId,
         type = this.mnType,
         loginName = this.msLoginName,
-        // TODO: msExternalId
+        externalId = this.msExternalId,
         title = this.msTitle,
         firstName = this.msFirstName,
         lastName = this.msSurName,
-        // TODO: msUnitName
+        unitName = this.msUnitName,
         address = this.msAddress,
         email = this.msEmail,
         fbId = this.mnFbid,
         addressId = this.mnAddressId,
         password = this.msPassword,
         phoneNumber = this.msPhoneNumber,
-        // TODO: mbActiveUser
+        active = this.mbActiveUser,
         courses = this.maCourses.courses.map { it.fromSoap() }.toSet()
     )
 }
@@ -111,10 +112,7 @@ fun Person.fromSoap(): de.debuglevel.evasysmiddleware.person.Person {
         identifier = this.msIdentifier,
         email = this.msEmail,
         gender = this.mnGender,
-        addressId = this.msAddress,
-        custom1 = this.msCustom1,
-        custom2 = this.msCustom2,
-        custom3 = this.msCustom3,
-        // TODO: msCustomFieldsJSON
+        address = this.msAddress,
+        customFieldsJSON = this.msCustomFieldsJSON,
     )
 }

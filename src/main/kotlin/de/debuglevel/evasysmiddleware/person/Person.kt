@@ -8,8 +8,6 @@ data class Person(
     val identifier: String,
     val email: String,
     val gender: Int,
-    val addressId: Int,
-    val custom1: String,
-    val custom2: String,
-    val custom3: String,
+    val address: String,
+    val customFieldsJSON: String,
 )

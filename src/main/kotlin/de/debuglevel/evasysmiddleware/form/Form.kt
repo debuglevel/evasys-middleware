@@ -5,4 +5,6 @@ data class Form(
     val name: String,
     val ownerId: Int,
     val formEngine: Int,
+    // TODO: CustomReportList
+    // TODO: UsageRestrictionList
 )

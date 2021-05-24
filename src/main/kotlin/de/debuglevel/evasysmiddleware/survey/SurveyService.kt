@@ -2,7 +2,7 @@ package de.debuglevel.evasysmiddleware.survey
 
 import de.debuglevel.evasysmiddleware.course.CourseService
 import de.debuglevel.evasysmiddleware.soap.SoapService
-import de.debuglevel.evasysmiddleware.soap.Survey
+import de.debuglevel.evasysmiddleware.soap.fromSoap
 import mu.KotlinLogging
 import javax.inject.Singleton
 
@@ -68,12 +68,14 @@ class SurveyService(
 //        return updatedPerson
 //    }
 
-    fun getAll(): List<Survey> {
+    fun getAll(): Set<Survey> {
         logger.debug { "Getting all surveys..." }
 
-        val surveys = courseService.getAll().flatMap {
-            it.m_oSurveyHolder.m_aSurveys.toSet()
-        }
+        val surveys = courseService.getAll().flatMap { course ->
+            // TODO: no idea if passing 0 here works
+            soapService.port.getSurveysByCourse(course.id, 0, 0).surveys
+                .map { survey -> survey.fromSoap() }
+        }.toSet()
 
         logger.debug { "Got ${surveys.size} surveys" }
         return surveys

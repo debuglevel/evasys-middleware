@@ -1,7 +1,7 @@
 package de.debuglevel.evasysmiddleware.survey
 
 import de.debuglevel.evasysmiddleware.period.Period
-import java.util.*
+import java.time.LocalDate
 
 data class Survey(
     private val id: Int,
@@ -14,7 +14,7 @@ data class Survey(
     private val openState: Int,
     private val formCount: Int,
     private val pswdCount: Int,
-    private val lastDataCollectionDate: Calendar,
+    private val lastDataCollectionDate: LocalDate,
     private val pageLinkOffset: Int,
     private val maskTan: String,
     private val maskState: Int,
