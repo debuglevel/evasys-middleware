@@ -1,6 +1,7 @@
 package de.debuglevel.evasysmiddleware.form
 
 import de.debuglevel.evasysmiddleware.soap.SoapService
+import de.debuglevel.evasysmiddleware.soap.UsageRestrictionList
 import de.debuglevel.evasysmiddleware.soap.fromSoap
 import mu.KotlinLogging
 import javax.inject.Singleton
@@ -69,7 +70,7 @@ class FormService(
     fun getAll(): Set<Form> {
         logger.debug { "Getting all forms..." }
 
-        val forms = soapService.port.allForms
+        val forms = soapService.port.getAllForms(true, true, UsageRestrictionList()).simpleForms
             .map { it.fromSoap() }
             .toSet()
 

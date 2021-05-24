@@ -69,7 +69,7 @@ class PeriodService(
     fun getAll(): Set<Period> {
         logger.debug { "Getting all periods..." }
 
-        val periods = soapService.port.allPeriods
+        val periods = soapService.port.allPeriods.periods
             .map { it.fromSoap() }
             .toSet()
 

@@ -69,7 +69,7 @@ class SurveyTypeService(
     fun getAll(): Set<SurveyType> {
         logger.debug { "Getting all survey types..." }
 
-        val surveyTypes = soapService.port.surveyTypes
+        val surveyTypes = soapService.port.surveyTypes.surveyTypes
             .map { it.fromSoap() }
             .toSet()
 

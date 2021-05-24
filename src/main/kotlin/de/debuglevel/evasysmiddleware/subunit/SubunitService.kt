@@ -69,7 +69,7 @@ class SubunitService(
     fun getAll(): Set<Subunit> {
         logger.debug { "Getting all subunits..." }
 
-        val subunits = soapService.port.subunits
+        val subunits = soapService.port.subunits.units
             .map { it.fromSoap() }
             .toSet()
 
