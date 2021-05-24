@@ -2,6 +2,7 @@ package de.debuglevel.evasysmiddleware.soap
 
 import mu.KotlinLogging
 import javax.inject.Singleton
+import javax.xml.namespace.QName
 
 @Singleton
 class SoapService(
@@ -9,10 +10,15 @@ class SoapService(
 ) {
     private val logger = KotlinLogging.logger {}
 
-    val port: EvasysSoapPort_PortType = run {
+    val port: SoapPort = run {
         logger.debug { "Initializing SOAP client..." }
-        val locator = SoapserverLocator()
-        val port = locator.getevasysSoapPort(soapProperties.endpointUrl)
+
+        val newEndpoint = soapProperties.endpointUrl
+        val qname = QName("soapserver-v71.wsdl", "soapserver")
+
+        val soapServer = Soapserver(newEndpoint, qname)
+        val port = soapServer.soapPort
+
         logger.debug { "Initialized SOAP client: $port" }
         port
     }
