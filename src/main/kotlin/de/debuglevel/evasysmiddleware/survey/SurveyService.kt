@@ -99,6 +99,15 @@ class SurveyService(
         return success
     }
 
+    fun reset(id: Int): Boolean {
+        logger.debug { "Resetting survey id=$id..." }
+
+        val success = soapService.port.resetSurvey(id)
+
+        logger.debug { "Reset survey id=$id: $success" }
+        return success
+    }
+
 //    fun delete(id: UUID) {
 //        logger.debug { "Deleting person with ID '$id'..." }
 //
