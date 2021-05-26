@@ -116,3 +116,11 @@ fun Person.fromSoap(): de.debuglevel.evasysmiddleware.person.Person {
         customFieldsJSON = this.msCustomFieldsJSON,
     )
 }
+
+fun CourseType.fromSoap(): de.debuglevel.evasysmiddleware.coursetype.CourseType {
+    return de.debuglevel.evasysmiddleware.coursetype.CourseType(
+        id = this.mnCourseTypeId,
+        name = this.msName,
+        moduleFormId = this.mnModuleFrmId,
+    )
+}
