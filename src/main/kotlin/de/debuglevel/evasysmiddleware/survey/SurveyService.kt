@@ -90,6 +90,15 @@ class SurveyService(
         return csv
     }
 
+    fun open(id: Int): Boolean {
+        logger.debug { "Opening survey id=$id..." }
+
+        val success = soapService.port.openSurvey(id)
+
+        logger.debug { "Opened survey id=$id: $success" }
+        return success
+    }
+
 //    fun delete(id: UUID) {
 //        logger.debug { "Deleting person with ID '$id'..." }
 //
