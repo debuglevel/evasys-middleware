@@ -81,6 +81,15 @@ class SurveyService(
         return surveys
     }
 
+    fun getCsv(id: Int): String {
+        logger.debug { "Getting CSV for survey id=$id..." }
+
+        val csv = soapService.port.getCSVRawData(id)
+
+        logger.debug { "Got CSV for survey id=$id (${csv.length} bytes)" }
+        return csv
+    }
+
 //    fun delete(id: UUID) {
 //        logger.debug { "Deleting person with ID '$id'..." }
 //
